@@ -79,7 +79,7 @@ def batch_vectorize():
         embedding_list = [
             generate_embedding(
                 ifname,
-                content,
+                sentence,
                 lang,
                 tmpdir,
                 bpe_fname,
