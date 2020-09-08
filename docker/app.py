@@ -86,7 +86,7 @@ def batch_vectorize():
                 bpe_codes_path,
                 encoder,
                 bpe_oname,
-            )
+            ).tolist()
             for sentence in content
         ]
     body = {"content": content, "embedding": embedding_list}
