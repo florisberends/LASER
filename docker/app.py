@@ -96,6 +96,9 @@ def batch_vectorize():
 def generate_embedding(
     ifname, content, lang, tmpdir, bpe_fname, bpe_codes_path, encoder, bpe_oname
 ):
+    for filename in [ifname, bpe_fname, bpe_oname]:
+        if os.path.exists(filename):
+            os.remove("demofile.txt")
     with ifname.open("w") as f:
         f.write(content)
     if lang != "--":
@@ -108,11 +111,15 @@ def generate_embedding(
             lower_case=True,
             gzip=False,
             verbose=True,
-            over_write=True,
+            over_write=False,
         )
         ifname = tok_fname
     BPEfastApply(
-        str(ifname), str(bpe_fname), str(bpe_codes_path), verbose=True, over_write=True,
+        str(ifname),
+        str(bpe_fname),
+        str(bpe_codes_path),
+        verbose=True,
+        over_write=False,
     )
     ifname = bpe_fname
     EncodeFile(
@@ -120,7 +127,7 @@ def generate_embedding(
         str(ifname),
         str(bpe_oname),
         verbose=True,
-        over_write=True,
+        over_write=False,
         buffer_size=10000,
     )
     dim = 1024
