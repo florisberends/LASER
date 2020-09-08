@@ -108,15 +108,11 @@ def generate_embedding(
             lower_case=True,
             gzip=False,
             verbose=True,
-            over_write=False,
+            over_write=True,
         )
         ifname = tok_fname
     BPEfastApply(
-        str(ifname),
-        str(bpe_fname),
-        str(bpe_codes_path),
-        verbose=True,
-        over_write=False,
+        str(ifname), str(bpe_fname), str(bpe_codes_path), verbose=True, over_write=True,
     )
     ifname = bpe_fname
     EncodeFile(
@@ -124,7 +120,7 @@ def generate_embedding(
         str(ifname),
         str(bpe_oname),
         verbose=True,
-        over_write=False,
+        over_write=True,
         buffer_size=10000,
     )
     dim = 1024
