@@ -96,24 +96,23 @@ def batch_vectorize():
 def generate_embedding(
     ifname, content, lang, tmpdir, bpe_fname, bpe_codes_path, encoder, bpe_oname
 ):
-    for filename in [ifname, bpe_fname, bpe_oname]:
+    tok_fname = tmpdir / "tok"
+    for filename in [ifname, bpe_fname, bpe_oname, tok_fname]:
         if os.path.exists(filename):
             os.remove(filename)
     with ifname.open("w") as f:
         f.write(content)
-    if lang != "--":
-        tok_fname = tmpdir / "tok"
-        Token(
-            str(ifname),
-            str(tok_fname),
-            lang=lang,
-            romanize=True if lang == "el" else False,
-            lower_case=True,
-            gzip=False,
-            verbose=True,
-            over_write=False,
-        )
-        ifname = tok_fname
+    Token(
+        str(ifname),
+        str(tok_fname),
+        lang=lang,
+        romanize=True if lang == "el" else False,
+        lower_case=True,
+        gzip=False,
+        verbose=True,
+        over_write=False,
+    )
+    ifname = tok_fname
     BPEfastApply(
         str(ifname),
         str(bpe_fname),
