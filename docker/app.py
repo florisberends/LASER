@@ -98,7 +98,7 @@ def generate_embedding(
 ):
     for filename in [ifname, bpe_fname, bpe_oname]:
         if os.path.exists(filename):
-            os.remove("demofile.txt")
+            os.remove(filename)
     with ifname.open("w") as f:
         f.write(content)
     if lang != "--":
